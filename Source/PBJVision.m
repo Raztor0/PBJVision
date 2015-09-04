@@ -2262,7 +2262,9 @@ typedef void (^PBJVisionBlock)();
         
         } else if (!isVideo && _flags.videoWritten) {
             
-            [_mediaWriter writeSampleBuffer:bufferToWrite withMediaTypeVideo:isVideo];
+            if(!_flags.videoCaptureFrame) {
+                [_mediaWriter writeSampleBuffer:bufferToWrite withMediaTypeVideo:isVideo];
+            }
             
             [self _enqueueBlockOnMainQueue:^{
                 if ([_delegate respondsToSelector:@selector(vision:didCaptureAudioSample:)]) {
