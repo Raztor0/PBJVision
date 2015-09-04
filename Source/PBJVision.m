@@ -2278,8 +2278,11 @@ typedef void (^PBJVisionBlock)();
             
             if(!_flags.videoCaptureFrame) {
                 [_mediaWriter writeSampleBuffer:bufferToWrite withMediaTypeVideo:isVideo];
+            } else {
+                _flags.paused = YES;
+                _flags.interrupted = YES;
             }
-
+            
             _flags.videoWritten = YES;
             
             // process the sample buffer for rendering onion layer or capturing video photo
