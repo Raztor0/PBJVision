@@ -2233,8 +2233,10 @@ typedef void (^PBJVisionBlock)();
     if (bufferToWrite && !_flags.interrupted) {
     
         if (isVideo) {
-
-            [_mediaWriter writeSampleBuffer:bufferToWrite withMediaTypeVideo:isVideo];
+            
+            if(!_flags.videoCaptureFrame) {
+                [_mediaWriter writeSampleBuffer:bufferToWrite withMediaTypeVideo:isVideo];
+            }
 
             _flags.videoWritten = YES;
         
